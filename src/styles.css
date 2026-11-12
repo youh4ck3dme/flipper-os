@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #09080d;
+  --color-surface: #16141f;
+  --color-surface-2: #221f2e;
+  --color-fg: #f4f1fb;
+  --color-muted: #b3adc4;
+  --color-primary: #c084fc;
+  --color-primary-fg: #14081f;
+  --color-accent: #2dd4bf;
+  --color-border: #3a354c;
+  --color-danger: #fb7185;
+  --color-ok: #4ade80;
+  --color-warn: #fbbf24;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  html {
+    color-scheme: dark;
+    background: var(--color-bg);
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: transparent;
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  a.bg-primary,
+  button.bg-primary {
+    background-image: linear-gradient(180deg, color-mix(in oklab, white 34%, transparent), transparent 48%);
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklab, white 55%, transparent),
+      0 10px 28px color-mix(in oklab, var(--color-primary) 36%, transparent);
+  }
+}
+
+@utility glass {
+  background:
+    linear-gradient(180deg, color-mix(in oklab, white 16%, transparent), transparent 42%),
+    color-mix(in oklab, var(--color-surface) 46%, transparent);
+  backdrop-filter: blur(22px) saturate(1.45);
+  -webkit-backdrop-filter: blur(22px) saturate(1.45);
+  border: 1px solid color-mix(in oklab, white 16%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white 32%, transparent),
+    0 16px 40px color-mix(in oklab, black 28%, transparent);
+}
+
+@utility glass-strong {
+  background:
+    linear-gradient(180deg, color-mix(in oklab, white 12%, transparent), transparent 40%),
+    color-mix(in oklab, var(--color-bg) 62%, transparent);
+  backdrop-filter: blur(28px) saturate(1.5);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+  border: 1px solid color-mix(in oklab, white 14%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in oklab, white 22%, transparent);
+}
+
+.liquid-field {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--color-bg);
+}
+
+.liquid-orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(40px);
+  opacity: 0.85;
+  will-change: transform;
+}
+
+.liquid-orb-a {
+  top: -8%;
+  left: -6%;
+  width: 42rem;
+  height: 42rem;
+  background: color-mix(in oklab, var(--color-primary) 70%, transparent);
+  animation: drift-a 18s ease-in-out infinite;
+}
+
+.liquid-orb-b {
+  top: 8%;
+  right: -10%;
+  width: 36rem;
+  height: 36rem;
+  background: color-mix(in oklab, var(--color-accent) 55%, transparent);
+  animation: drift-b 22s ease-in-out infinite;
+}
+
+.liquid-orb-c {
+  bottom: -18%;
+  left: 28%;
+  width: 40rem;
+  height: 28rem;
+  background: color-mix(in oklab, var(--color-primary) 40%, black);
+  animation: drift-c 26s ease-in-out infinite;
+}
+
+@keyframes drift-a {
+  0%,
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(8%, 6%, 0) scale(1.08); }
+}
+
+@keyframes drift-b {
+  0%,
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-10%, 8%, 0) scale(1.12); }
+}
+
+@keyframes drift-c {
+  0%,
+  100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-6%, -8%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
